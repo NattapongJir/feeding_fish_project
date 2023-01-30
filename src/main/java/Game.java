@@ -31,7 +31,7 @@ public class Game extends JFrame{
     private int playerCurX  = 800,  playerCurY   = frameHeight - playerHeight - 50;
     private int textWidth = frameWidth/20, textHeight = frameHeight/20;
     private final int dx = 2;
-    private final int dy = 1;
+    private final int dy = 2;
     private boolean playerLeft;
     private int score = 0;
     private int playerLevel = 1;
@@ -92,17 +92,22 @@ public class Game extends JFrame{
         //Player Movement
         addKeyListener(new KeyAdapter(){
             public void keyPressed(KeyEvent e) {
-            if (e.getKeyCode() == KeyEvent.VK_UP || e.getKeyCode() == KeyEvent.VK_W ){p.setVelY(-dy);}
-            else if (e.getKeyCode() == KeyEvent.VK_DOWN || e.getKeyCode() == KeyEvent.VK_S ){p.setVelY(dy);}
-            else if (e.getKeyCode() == KeyEvent.VK_LEFT || e.getKeyCode() == KeyEvent.VK_A ){p.setVelX(-dx);playerLabel.setIcon(playerImgLeft);playerLeft = true;}
-            else if (e.getKeyCode() == KeyEvent.VK_RIGHT || e.getKeyCode() == KeyEvent.VK_D ){p.setVelX(dx);playerLabel.setIcon(playerImgRight);playerLeft = false;}
+            if (e.getKeyCode() == KeyEvent.VK_UP || e.getKeyCode() == KeyEvent.VK_W ){p.setVelY(-dy);p.setkp(true, 0);}
+            else if (e.getKeyCode() == KeyEvent.VK_DOWN || e.getKeyCode() == KeyEvent.VK_S ){p.setVelY(dy);p.setkp(true, 1);}
+            else if (e.getKeyCode() == KeyEvent.VK_LEFT || e.getKeyCode() == KeyEvent.VK_A ){p.setVelX(-dx);playerLabel.setIcon(playerImgLeft);playerLeft = true;p.setkp(true, 2);}
+            else if (e.getKeyCode() == KeyEvent.VK_RIGHT || e.getKeyCode() == KeyEvent.VK_D ){p.setVelX(dx);playerLabel.setIcon(playerImgRight);playerLeft = false;p.setkp(true, 3);}
             else if (e.getKeyCode() == KeyEvent.VK_SPACE){playerDash(p);}
             }
             public void keyReleased(KeyEvent e) {
-                if (e.getKeyCode() == KeyEvent.VK_UP || e.getKeyCode() == KeyEvent.VK_W){p.setVelY(0);}
-                else if (e.getKeyCode() == KeyEvent.VK_DOWN || e.getKeyCode() == KeyEvent.VK_S ){p.setVelY(0);}
-                else if (e.getKeyCode() == KeyEvent.VK_LEFT || e.getKeyCode() == KeyEvent.VK_A ){p.setVelX(0);}
-                else if (e.getKeyCode() == KeyEvent.VK_RIGHT || e.getKeyCode() == KeyEvent.VK_D ){p.setVelX(0);}
+                if ((e.getKeyCode() == KeyEvent.VK_UP || e.getKeyCode() == KeyEvent.VK_W) ){p.setkp(false, 0);}
+                else if ((e.getKeyCode() == KeyEvent.VK_DOWN || e.getKeyCode() == KeyEvent.VK_S) ){p.setkp(false, 1);}
+                else if ((e.getKeyCode() == KeyEvent.VK_LEFT || e.getKeyCode() == KeyEvent.VK_A) ){p.setkp(false, 2);}
+                else if ((e.getKeyCode() == KeyEvent.VK_RIGHT || e.getKeyCode() == KeyEvent.VK_D) ){p.setkp(false, 3);}
+                
+                if ((e.getKeyCode() == KeyEvent.VK_UP || e.getKeyCode() == KeyEvent.VK_W)&& !p.getkp(1) ){p.updateVelY(dy);p.setkp(false, 0);}
+                else if ((e.getKeyCode() == KeyEvent.VK_DOWN || e.getKeyCode() == KeyEvent.VK_S)&& !p.getkp(0) ){p.updateVelY(-dy);p.setkp(false, 1);}
+                else if ((e.getKeyCode() == KeyEvent.VK_LEFT || e.getKeyCode() == KeyEvent.VK_A)&& !p.getkp(3) ){p.updateVelX(dx);p.setkp(false, 2);}
+                else if ((e.getKeyCode() == KeyEvent.VK_RIGHT || e.getKeyCode() == KeyEvent.VK_D)&& !p.getkp(2) ){p.updateVelX(-dx);p.setkp(false, 3);}
                 }
         });
 
@@ -491,13 +496,13 @@ public class Game extends JFrame{
         }
         Thread hitablThread = new Thread(){
             public void run(){                
-                for(int i = 0; i< 3; i++){
+                for(int i = 0; i< 6; i++){
                     playerLabel.setVisible(false);
                     playerLabel.repaint();
-                    try{Thread.sleep(500);}catch(Exception e){e.printStackTrace();}
+                    try{Thread.sleep(250);}catch(Exception e){e.printStackTrace();}
                     playerLabel.setVisible(true);
                     playerLabel.repaint();
-                    try{Thread.sleep(500);}catch(Exception e){e.printStackTrace();}
+                    try{Thread.sleep(250);}catch(Exception e){e.printStackTrace();}
                 }
                 playerHitable = true;
             }
@@ -607,8 +612,13 @@ public class Game extends JFrame{
 class Player{
     private String name;
     private int velX, velY;
+    private boolean[] kp = {false,false,false,false};
     public Player(String name){
         this.name = name;
+        /*kp[0]=false;//up
+        kp[1]=false;//down
+        kp[2]=false;//left
+        kp[3]=false;//right*/
         velX = 0;
         velY = 0;
     }
@@ -619,6 +629,10 @@ class Player{
     public int getVelY(){return velY;}
     public String getName(){return name;}
     public void setName(String n){this.name = n;}
+    public void updateVelX(int x){velX=velX+x;}
+    public void updateVelY(int y){velY=velY+y;}
+    public void setkp(boolean f, int index){kp[index]=f;}
+    public boolean getkp(int index){return kp[index];}
 }
 
 class Fish{

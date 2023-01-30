@@ -28,7 +28,7 @@ class Main extends JFrame {
     private JLabel drawpane, welcome, user, login, fText, fspeak, fishin, SortbyLabel;
     private MyImageIcon indoorImg;
     private JTextField passbox;
-    private JButton  goButton, start, score, exist, backlogin;
+    private JButton goButton, start, score, exist, backlogin;
     private JCheckBox sound;
     private JDialog highscore;
     private Main menu;
@@ -42,7 +42,7 @@ class Main extends JFrame {
     private JSpinner selectmusic;
     private JSlider volume;
     private int song;
-    
+
     ;
     public Main() {
         menu = this;
@@ -60,12 +60,12 @@ class Main extends JFrame {
         drawpane.setIcon(indoorImg);
         drawpane.setLayout(null);
 
-        JLabel feedLabel = new JLabel(new MyImageIcon("resources/Text/feed.png").resize(600, 150));
-        feedLabel.setBounds(345, 50, 600, 150);
+        JLabel feedLabel = new JLabel(new MyImageIcon("resources/Text/feed.png").resize(1000, 650));
+        feedLabel.setBounds(310, 0, 700, 190);
         passwordpane = new JPanel();
         passwordpane.setBounds(400, 300, 500, 200);
         passwordpane.setLayout(null);
-        passwordpane.setBackground(new Color(186, 241, 94));
+        passwordpane.setBackground(new Color(67, 133, 125));
 
         passbox = new JTextField(10);
         passbox.setText("New Player");
@@ -73,11 +73,13 @@ class Main extends JFrame {
         passbox.setFont(new Font("Tahoma", Font.BOLD, 30));
         welcome = new JLabel("Welcome");
         welcome.setBounds(200, 0, 200, 50);
+        welcome.setForeground(new Color(255,255,255));
         welcome.setFont(new Font("Tahoma", Font.BOLD, 30));
 
         user = new JLabel("Who are you");
         user.setBounds(50, 55, 200, 50);
         user.setFont(new Font("Tahoma", Font.BOLD, 30));
+        user.setForeground(new Color(255,255,255));
         soundbackground = new MySoundEffects("resources/Sound/Ocean.wav");
         goButton = new JButton("Enter");
         goButton.setBounds(200, 125, 100, 50);
@@ -88,7 +90,7 @@ class Main extends JFrame {
                 username = new String(passbox.getText());
                 System.out.printf("%s", username);
                 passbox.setText("");
-                
+
                 mainmenu();
                 validate();
                 repaint();
@@ -101,8 +103,7 @@ class Main extends JFrame {
 
         drawpane.add(passwordpane);
         drawpane.add(feedLabel);
-        
-        
+
         contentpane.add(drawpane, BorderLayout.CENTER);
         validate();
 
@@ -110,58 +111,66 @@ class Main extends JFrame {
 
     public void mainmenu() {
         start = new JButton("Start");
-        start.setBounds(500, 200, 300, 100);
-        start.setBackground(new Color(186, 241, 94));
-        start.setFont(new Font("Tahoma", Font.BOLD, 42));
+        start.setBounds(520, 220, 300, 100);
+        start.setOpaque(false);
+        start.setContentAreaFilled(false);
+        start.setBorderPainted(false);
+        //start.setBackground(new Color(186, 241, 94));
+        //start.setFont(new Font("Tahoma", Font.BOLD, 42));
+        start.setIcon(new MyImageIcon("resources/Start.png").resize(907,750));
         start.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 setVisible(false);
                 setting b = new setting();
                 b.setid(username);
-                
+
             }
-            
+
         });
-                
-                
-                /*addActionListener(new ActionListener() {
+
+        /*addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
             }
                 game_setting_project_213 b = new game_setting_project_213();
             });*/
-        fishin = new JLabel(new MyImageIcon("resources/Sprite/fishin.png").resize(300, 250));
-        fishin.setBounds(200,330,300,250);
+        fishin = new JLabel(new MyImageIcon("resources/Sprite/fishin.png").resize(400, 350));
+        fishin.setBounds(200, 330, 300, 250);
         fishin.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
-                
-                fspeak.setText("<html>6313131 Teetuch Siribunpitug<br>6313176 Nattapong Jitrangsi<br>6313172 Chavakan Yimmark</html>"
+
+                fspeak.setText("<html>Use WASD to go up go left go right and go down<br> Spacebar to Dash <br> And Beware times run out</html>"
                 );
                 validate();
                 repaint();
             }
+
             @Override
             public void mouseReleased(MouseEvent e) {
-                
-                fspeak.setText("<html>Use Click and Hold <br>your mouse to me!!</html>"
+
+                fspeak.setText("<html>Use Click and Hold <br>your mouse to me!! <br>For how to control</html>"
                 );
                 validate();
                 repaint();
             }
         });
-        
-        fText =  new JLabel(new MyImageIcon("resources/Sprite/Textbox.png").resize(300, 250));
-        fText.setBounds(30,125,300,250);
-        fspeak = new JLabel("<html>Use Click and Hold <br>your mouse to me!!</html>");
+
+        fText = new JLabel(new MyImageIcon("resources/Sprite/Textbox.png").resize(300, 250));
+        fText.setBounds(30, 125, 300, 250);
+        fspeak = new JLabel("<html>Use Click and Hold <br>your mouse to me!! <br>For how to control</html>");
         fspeak.setFont(new Font("Tahoma", Font.BOLD, 14));
-        fspeak.setBounds(30,30,275,130);
+        fspeak.setBounds(30, 30, 275, 130);
         fText.add(fspeak);
-        
+
         score = new JButton("Score");
-        score.setBounds(500, 350, 300, 100);
-        score.setBackground(new Color(186, 241, 94));
-        score.setFont(new Font("Tahoma", Font.BOLD, 42));
+        score.setBounds(500, 300, 300, 150);
+        score.setOpaque(false);
+        score.setContentAreaFilled(false);
+        score.setBorderPainted(false);
+        //score.setBackground(new Color(186, 241, 94));
+        //score.setFont(new Font("Tahoma", Font.BOLD, 42));
+        score.setIcon(new MyImageIcon("resources/Score.png").resize(907,750));
         score.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 highscore = new JDialog(menu, "High score");
@@ -175,11 +184,9 @@ class Main extends JFrame {
                 dialogpane.setBackground(new Color(255, 204, 102));
                 dialogpane.setBounds(0, 0, 700, 700);
                 dialogpane.setLayout(null);
-                
+
                 highscore.add(dialogpane);
-                
-                
-                
+
                 ArrayList<Highscore> HL = new ArrayList<Highscore>();
                 int check = 1;
                 Scanner input = new Scanner(System.in);
@@ -197,7 +204,6 @@ class Main extends JFrame {
                                 long time = Long.parseLong(buf[2].trim());
                                 int total = Integer.parseInt(buf[3].trim());
                                 int score = Integer.parseInt(buf[4].trim());
-                                
 
                                 Highscore h = new Highscore(name, diff, time, total, score);
                                 HL.add(h);
@@ -229,11 +235,10 @@ class Main extends JFrame {
                     easyhard[i].addItemListener(new ItemListener() {
                         public void itemStateChanged(ItemEvent e) {
                             textscore.setText("");
-                            textscore.setText(" Player name" + "    " + "Difficult" + "          " + "Time" + "       " + "Total fish" + "      " + "Score" +" "+"\n");
+                            textscore.setText(" Player name" + "    " + "Difficult" + "          " + "Time" + "       " + "Total fish" + "      " + "Score" + " " + "\n");
                             JRadioButton temp = (JRadioButton) e.getItem();
                             if (temp.isSelected()) {
                                 nowbutton = temp.getText();
-                                
 
                                 System.out.print(temp.getText());
                                 System.out.print(HL.get(0).getDiff());
@@ -254,9 +259,8 @@ class Main extends JFrame {
                                         })
                                         .sorted()
                                         .forEach(arg -> {
-                                                textscore.append(String.format("%-15s", arg.getPlayername()) + "\t" + String.format("%-9s", arg.getDiff()) + "\t" + String.format("%04d", arg.getTime()) + "          "
-                                                + String.format("%04d", arg.getTotalfish()) + "          " + String.format("%05d", arg.getScore()) + " "+"\n");
-                                            
+                                            textscore.append(String.format("%-15s", arg.getPlayername()) + "\t" + String.format("%-9s", arg.getDiff()) + "\t" + String.format("%04d", arg.getTime()) + "          "
+                                                    + String.format("%04d", arg.getTotalfish()) + "          " + String.format("%05d", arg.getScore()) + " " + "\n");
 
                                         }
                                         );
@@ -277,7 +281,6 @@ class Main extends JFrame {
                 listmodel.addElement(item);
                 listmodel.addElement("Total Fish");
                 listmodel.addElement("Score");
-                
 
                 list = new JList(listmodel);
                 list.setVisibleRowCount(3);
@@ -293,7 +296,7 @@ class Main extends JFrame {
                             } else {
                                 sortby = "";
                             }
-                            textscore.setText(" Player name" + "    " + "Difficult" + "          " + "Time" + "       " + "Total fish" + "      " + "Score" +" "+"\n");
+                            textscore.setText(" Player name" + "    " + "Difficult" + "          " + "Time" + "       " + "Total fish" + "      " + "Score" + " " + "\n");
                             System.out.print(nowbutton);
                             System.out.print(HL.get(0).getDiff());
                             Stream<Highscore> mystream = HL.stream();
@@ -309,14 +312,14 @@ class Main extends JFrame {
                                         if (sortby == "Score") {
                                             arg.setResult(arg.getScore());
                                         }
-                                        
+
                                         return arg;
                                     })
                                     .sorted()
                                     .forEach(arg -> {
 
                                         textscore.append(String.format("%-15s", arg.getPlayername()) + "\t" + String.format("%-9s", arg.getDiff()) + "\t" + String.format("%04d", arg.getTime()) + "          "
-                                                + String.format("%04d", arg.getTotalfish()) + "          " + String.format("%05d", arg.getScore()) + " "+"\n");
+                                                + String.format("%04d", arg.getTotalfish()) + "          " + String.format("%05d", arg.getScore()) + " " + "\n");
 
                                     }
                                     );
@@ -331,10 +334,10 @@ class Main extends JFrame {
                 dialogpane.add(lsc);
                 //dialogpane.remove(lsc);
                 //dialogpane.add(lsc);
-                
+
                 bpanel.setBounds(70, 110, 540, 60);
                 SortbyLabel = new JLabel("Sortby");
-                SortbyLabel.setBounds(160,30,150,70);
+                SortbyLabel.setBounds(160, 30, 150, 70);
                 SortbyLabel.setFont(new Font("Tahoma", Font.BOLD, 30));
                 textscore = new JTextArea(22, 20);
                 JScrollPane tsc = new JScrollPane();
@@ -347,8 +350,7 @@ class Main extends JFrame {
                 dialogpane.add(tsc);
                 dialogpane.add(bpanel);
                 dialogpane.add(SortbyLabel);
-                
-                
+
                 validate();
                 repaint();
                 dialogpane.revalidate();
@@ -356,9 +358,14 @@ class Main extends JFrame {
         });
 
         exist = new JButton("Exit");
-        exist.setBounds(500, 500, 300, 100);
-        exist.setBackground(new Color(186, 241, 94));
-        exist.setFont(new Font("Tahoma", Font.BOLD, 42));
+        exist.setBounds(525, 460, 300, 150);
+        //exist.setBackground(new Color(186, 241, 94));
+        exist.setOpaque(false);
+        exist.setContentAreaFilled(false);
+        exist.setBorderPainted(false);
+        
+        //exist.setFont(new Font("Tahoma", Font.BOLD, 42));
+        exist.setIcon(new MyImageIcon("resources/Exist.png").resize(907,750));
         exist.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 System.exit(0);
@@ -367,65 +374,58 @@ class Main extends JFrame {
         login = new JLabel("You login as " + username);
         login.setBounds(0, 0, (300 + username.length() * 25), 50);
         //login.setForeground(Color.BLUE);
-        login.setOpaque(true);
+        login.setOpaque(false);
         login.setBackground(new Color(186, 241, 94));
+        login.setForeground(new Color(255,255,255));
         login.setFont(new Font("Tahoma", Font.BOLD, 42));
         //soundbackground = new MySoundEffect("resources/ocean.wav");
         sound = new JCheckBox("Music");
-        sound.setBackground(new Color(186, 241, 94));
+        sound.setBackground(new Color(255, 255, 255));
+        sound.setOpaque(false);
+        sound.setForeground(new Color(255, 255, 255));
         sound.setBounds(1000, 580, 150, 50);
         sound.setFont(new Font("Tahoma", Font.BOLD, 42));
         sound.addItemListener(new ItemListener() {
-                        public void itemStateChanged(ItemEvent e) {
-                            if(e.getStateChange()==ItemEvent.SELECTED)
-                            {
-                                
-                                soundbackground.playOnce();
-                                soundbackground.setvolume(volume.getValue());
-                            }
-                            else
-                            {
-                                soundbackground.stop();
-                            }
-                            
-                        }
+            public void itemStateChanged(ItemEvent e) {
+                if (e.getStateChange() == ItemEvent.SELECTED) {
+
+                    soundbackground.playOnce();
+                    soundbackground.setvolume(volume.getValue());
+                } else {
+                    soundbackground.stop();
+                }
+
+            }
         });
-        
+
         selectmusic = new JSpinner(new SpinnerListModel(musiclist));
-        selectmusic.setBounds(1000,500,180,50);
+        selectmusic.setBounds(1000, 500, 180, 50);
         selectmusic.setFont(new Font("Tahoma", Font.BOLD, 18));
         selectmusic.addChangeListener(new ChangeListener() {
             public void stateChanged(ChangeEvent e) {
                 if (selectmusic.getValue() == "Ocean") {
                     soundbackground.stop();
-                    soundbackground.SetMusic("resources/Sound/Ocean.wav"); 
+                    soundbackground.SetMusic("resources/Sound/Ocean.wav");
                     //= new MySoundEffect("resources/ocean.wav");
-                    if(sound.isSelected())
-                    {
+                    if (sound.isSelected()) {
                         soundbackground.playOnce();
                         soundbackground.setvolume(volume.getValue());
                     }
                     //soundbackground.playLoop();
-                }
-                else if(selectmusic.getValue() == "Feeding Frenzy")
-                {
+                } else if (selectmusic.getValue() == "Feeding Frenzy") {
                     soundbackground.stop();
-                    soundbackground.SetMusic("resources/Sound/FF.wav") ;
-                            //= new MySoundEffects("resources/FF.wav");
-                     if(sound.isSelected())
-                    {
+                    soundbackground.SetMusic("resources/Sound/FF.wav");
+                    //= new MySoundEffects("resources/FF.wav");
+                    if (sound.isSelected()) {
                         soundbackground.playOnce();
                         soundbackground.setvolume(volume.getValue());
                     }
                     //soundbackground.playLoop();
-                }
-                else if(selectmusic.getValue() == "Mysterious")
-                {
+                } else if (selectmusic.getValue() == "Mysterious") {
                     soundbackground.stop();
-                    soundbackground.SetMusic("resources/Sound/mysterious.wav") ;
-                            //= new MySoundEffects("resources/FF.wav");
-                     if(sound.isSelected())
-                    {
+                    soundbackground.SetMusic("resources/Sound/mysterious.wav");
+                    //= new MySoundEffects("resources/FF.wav");
+                    if (sound.isSelected()) {
                         soundbackground.playOnce();
                         soundbackground.setvolume(volume.getValue());
                     }
@@ -437,20 +437,18 @@ class Main extends JFrame {
         );
         volume = new JSlider(JSlider.VERTICAL, 20, 100, 60);
         volume.setBackground(new Color(186, 241, 94));
-        volume.addChangeListener(new ChangeListener(){
+        volume.setOpaque(false);
+        volume.addChangeListener(new ChangeListener() {
             public void stateChanged(ChangeEvent e) {
-                if(sound.isSelected())
-               soundbackground.setvolume(volume.getValue());
-             
+                if (sound.isSelected()) {
+                    soundbackground.setvolume(volume.getValue());
+                }
+
             }
-         });   
-        volume.setBounds(1200,500,50,150);
+        });
+        volume.setBounds(1200, 500, 50, 150);
         //soundbackground.setvolume(volume.getValue());
-            
-            
-        
-        
-        
+
         backlogin = new JButton();
         backlogin.setBounds(10, 500, 150, 150);
         backlogin.setOpaque(false);
@@ -493,9 +491,8 @@ class Main extends JFrame {
     public static void main(String[] args) {
         new Main();
     }
-    
-};
 
+};
 
 class MyImageIcon extends ImageIcon {
 
@@ -527,7 +524,7 @@ class Highscore implements Comparable<Highscore> {
         time = t;
         totalfish = tf;
         score = sc;
-        
+
     }
 
     public void setPlayername(String na) {
@@ -549,8 +546,6 @@ class Highscore implements Comparable<Highscore> {
     public void setScore(int wi) {
         score = wi;
     }
-
-    
 
     public void setResult(long re) {
         result = re;
@@ -576,8 +571,6 @@ class Highscore implements Comparable<Highscore> {
         return score;
     }
 
-    
-
     public double getResult() {
         return result;
     }
@@ -600,19 +593,21 @@ class Highscore implements Comparable<Highscore> {
 class MySoundEffects {
 
     private Clip clip;
+
     public MySoundEffects(String filename) {
         try {
-           
+
             java.io.File file = new java.io.File(filename);
             AudioInputStream audioStream = AudioSystem.getAudioInputStream(file);
             clip = AudioSystem.getClip();
-            clip.open(audioStream); 
+            clip.open(audioStream);
             FloatControl volume = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
             volume.setValue(-40f);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
     public void SetMusic(String filename) {
         System.out.print("dsffsdfs");
         try {
@@ -624,9 +619,10 @@ class MySoundEffects {
             e.printStackTrace();
         }
     }
+
     public void playOnce() {
         clip.setMicrosecondPosition(0);
-        
+
         clip.loop(Clip.LOOP_CONTINUOUSLY);
     }
 
@@ -635,28 +631,25 @@ class MySoundEffects {
         FloatControl volume = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
         volume.setValue(0f);
         clip.loop(Clip.LOOP_CONTINUOUSLY);
-        
-        
+
     }
-    public Clip getClip()
-    {
+
+    public Clip getClip() {
         return clip;
     }
-    
-    public void setvolume(int level){
+
+    public void setvolume(int level) {
         clip.stop();
         FloatControl volume = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
         if (volume != null) {
-        Float result= (-(100-level)/100f)*100;
-        volume.setValue(result);
-        clip.loop(Clip.LOOP_CONTINUOUSLY);
+            Float result = (-(100 - level) / 100f) * 100;
+            volume.setValue(result);
+            clip.loop(Clip.LOOP_CONTINUOUSLY);
+        }
     }
-    }
-    
+
     public void stop() {
         clip.stop();
     }
-   
-   
-};
 
+};
